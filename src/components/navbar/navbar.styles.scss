@@ -1,0 +1,15 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding-right: 32px;
+  padding-left: 32px;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: center;
+}
