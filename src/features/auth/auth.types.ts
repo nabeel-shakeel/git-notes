@@ -3,11 +3,10 @@ export interface User {
   displayName: string | null;
   email: string | null;
   photoURL: string | null;
-  accessToken: string;
 }
 
 export interface AuthState {
   user: User | null;
-  loading: boolean;
+  accessToken: string | null;
   error: string | null;
 }

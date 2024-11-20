@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { auth, githubProvider } from './firebase';
 import { signInWithPopup, GithubAuthProvider } from 'firebase/auth';
 import { User, AuthState } from './auth.types';
 
 const initialState: AuthState = {
   user: null,
-  loading: false,
+  accessToken: null,
   error: null,
 };
 
@@ -18,15 +18,17 @@ export const loginWithGithub = createAsyncThunk(
       const accessToken = credential?.accessToken;
 
       if (!accessToken) throw new Error('Access token is missing.');
+      localStorage.setItem('github_access_token', accessToken);
 
-      console.log('result', result);
-      const user = result.user;
+      const user = {
+        uid: result.user.uid,
+        displayName: result.user.displayName,
+        email: result.user.email,
+        photoURL: result.user.photoURL,
+      };
 
       return {
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
+        user,
         accessToken,
       };
     } catch (error: any) {
@@ -39,28 +41,32 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: (state) => {
+    setUser: (
+      state,
+      action: PayloadAction<{ user: User; accessToken: string }>
+    ) => {
+      state.user = action.payload.user;
+      state.accessToken = action.payload.accessToken;
+    },
+    clearUser: (state) => {
       state.user = null;
-      state.loading = false;
       state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginWithGithub.pending, (state) => {
-        state.loading = true;
         state.error = null;
       })
       .addCase(loginWithGithub.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
+        state.accessToken = action.payload.accessToken;
       })
       .addCase(loginWithGithub.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.payload as string;
       });
   },
 });
 
-export const { logout } = authSlice.actions;
-export default authSlice.reducer;
+export const { setUser, clearUser } = authSlice.actions;
+export const { reducer: authReducer } = authSlice;

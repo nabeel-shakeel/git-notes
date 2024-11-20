@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { User } from 'src/features/auth/auth.types';
 import { auth, signOut } from '../../features/auth/firebase';
-import { logout } from '../../features/auth/authSlice';
+import { clearUser } from '../../features/auth/authSlice';
 
 interface UserProfileMenuProps {
   user: User;
@@ -38,7 +38,7 @@ export function UserProfileMenu({ user }: UserProfileMenuProps) {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      dispatch(logout());
+      dispatch(clearUser());
     } catch (error) {
       console.log('Error signing out', error);
     }
