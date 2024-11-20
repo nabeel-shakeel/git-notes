@@ -3,11 +3,11 @@ import { Container } from '@mui/material';
 import Navbar from '../../components/navbar';
 import './root.styles.scss';
 
-export default function RooLayout() {
+export function RootLayout() {
   return (
     <>
       <Navbar />
-      <Container fixed className="container">
+      <Container className="container">
         <Outlet />
       </Container>
     </>

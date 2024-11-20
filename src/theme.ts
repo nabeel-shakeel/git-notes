@@ -10,6 +10,12 @@ export const theme = createTheme({
     },
   },
   typography: {
+    h5: {
+      fontSize: '25px',
+      fontWeight: 400,
+      lineHeight: '30px',
+      color: '#3D3D3D',
+    },
     body2: {
       fontSize: '14px',
       fontWeight: 400,

@@ -1,0 +1,105 @@
+.gist-preview-card {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: #bdbdbd;
+  }
+
+  .code-preview {
+    padding: 16px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+
+    pre {
+      margin: 0;
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 0.875rem;
+      color: #212121;
+      overflow: hidden;
+    }
+
+    .view-file-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+      text-transform: none;
+      background-color: #fff;
+      color: rgba(0, 0, 0, 0.87);
+      border: 1px solid #e0e0e0;
+
+      &:hover {
+        background-color: #fff;
+        border-color: #bdbdbd;
+      }
+    }
+
+    &:hover {
+      .view-file-button {
+        opacity: 1;
+      }
+    }
+  }
+
+  .card-content {
+    padding: 16px !important; // Override MUI default padding
+
+    .content-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .author-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .author-info {
+        .name-section {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 4px;
+
+          .author-name {
+            font-weight: 500;
+          }
+
+          .filename {
+            color: #1976d2;
+            cursor: pointer;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .description {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 500px;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+
+      .MuiIconButton-root {
+        color: rgba(0, 0, 0, 0.54);
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.04);
+        }
+      }
+    }
+  }
+}
