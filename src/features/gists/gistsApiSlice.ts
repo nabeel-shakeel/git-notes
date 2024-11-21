@@ -7,10 +7,10 @@ export const gistsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.github.com',
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.accessToken;
+      const { user } = (getState() as RootState).auth;
 
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+      if (user?.accessToken) {
+        headers.set('Authorization', `Bearer ${user?.accessToken}`);
       }
 
       return headers;
@@ -28,6 +28,13 @@ export const gistsApi = createApi({
     getPublicGists: builder.query<Gist[], { page: number; per_page: number }>({
       query: ({ page, per_page }) =>
         `/gists/public?page=${page}&per_page=${per_page}`,
+    }),
+    getUserGists: builder.query<Gist[], { page: number; per_page: number }>({
+      query: ({ page, per_page }) => `/gists?page=${page}&per_page=${per_page}`,
+    }),
+    getStarredGists: builder.query<Gist[], { page: number; per_page: number }>({
+      query: ({ page, per_page }) =>
+        `/gists/starred?page=${page}&per_page=${per_page}`,
     }),
     getSingleGist: builder.query<SingleGist, string>({
       query: (gistId) => `/gists/${gistId}`,
@@ -87,15 +94,25 @@ export const gistsApi = createApi({
         throw new Error('Unexpected error'); // Handle unexpected cases
       },
     }),
+    createGist: builder.mutation({
+      query: (body) => ({
+        url: 'gists',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetPublicGistsQuery,
+  useGetUserGistsQuery,
+  useGetStarredGistsQuery,
   useGetSingleGistQuery,
   useGetGistContentQuery,
   useStarGistMutation,
   useUnstarGistMutation,
   useForkGistMutation,
   useCheckIfStarredQuery,
+  useCreateGistMutation,
 } = gistsApi;
