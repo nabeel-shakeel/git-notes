@@ -1,12 +1,12 @@
 export interface User {
-  uid: string;
+  accessToken: string | null;
   displayName: string | null;
   email: string | null;
   photoURL: string | null;
+  profileURL: string | null;
 }
 
 export interface AuthState {
   user: User | null;
-  accessToken: string | null;
   error: string | null;
 }
