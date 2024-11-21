@@ -1,12 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import { useAppSelector } from '../redux/hooks';
 
 export function PrivateRoute() {
   // Access user info from Redux
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
 
-  // If no user is logged in, redirect to the landing page
+  //If no user is logged in, redirect to the landing page
   if (!user) {
     return <Navigate to="/" replace />;
   }
