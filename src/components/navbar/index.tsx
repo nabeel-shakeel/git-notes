@@ -1,12 +1,11 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, AppBar, Toolbar, Button } from '@mui/material';
-import { AppLogo } from '../../assets/icons';
-import { UserProfileMenu } from '../user-profile-menu';
+import { Box, AppBar, Toolbar } from '@mui/material';
 import { RootState } from '../../redux/store';
-import './navbar.styles.scss';
-import { SearchNavBar } from '../search-nav-bar';
+import { UserProfileMenu } from '../user-profile-menu';
+import { SearchGist } from '../../features/search/components/search-gist';
 import { GithubLogin } from '../../features/auth/components/github-login';
+import { AppLogo } from '../../assets/icons';
+import './navbar.styles.scss';
 
 export default function Navbar() {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -16,7 +15,7 @@ export default function Navbar() {
       <Toolbar className="nav-container">
         <AppLogo sx={{ width: 165, height: 30 }} />
         <Box className="profile-container">
-          <SearchNavBar />
+          <SearchGist />
           {user ? <UserProfileMenu user={user} /> : <GithubLogin />}
         </Box>
       </Toolbar>
