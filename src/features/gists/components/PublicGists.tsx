@@ -32,7 +32,9 @@ import { GistListView, GistListSkeleton } from './gist-list-view';
 import { GistGridView, GistGridSkeleton } from './gist-grid-view';
 import { ErrorComponent } from '../../../components';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../redux/hooks';
 import { routes } from '../../../routing/routes';
+import { ROWS_PER_PAGE, GRIDS_PER_PAGE } from '../../../utils/constants';
 
 interface PublicGistsProps {
   mode: 'list' | 'grid';
@@ -41,9 +43,10 @@ interface PublicGistsProps {
 export function PublicGists({ mode }: PublicGistsProps) {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [selectedGist, setSelectedGist] = useState<Gist | null>(null);
-  const [selectedFile, setSelectedFile] = useState<string>('');
+  const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_PAGE);
+  const [gridsPerPage, setGridsPerPage] = useState(GRIDS_PER_PAGE);
+
+  const searchTerm = useAppSelector((state) => state.search.searchTerm);
 
   const LoadingComponent =
     mode === 'list' ? GistListSkeleton : GistGridSkeleton;
@@ -54,13 +57,8 @@ export function PublicGists({ mode }: PublicGistsProps) {
     error,
   } = useGetPublicGistsQuery({
     page: page + 1,
-    per_page: rowsPerPage,
+    per_page: mode === 'list' ? rowsPerPage : gridsPerPage,
   });
-
-  const { data: fileContent } = useGetGistContentQuery(
-    selectedGist?.files[selectedFile]?.raw_url || '',
-    { skip: !selectedGist || !selectedFile }
-  );
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
@@ -69,7 +67,11 @@ export function PublicGists({ mode }: PublicGistsProps) {
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    if (mode === 'list') {
+      setRowsPerPage(parseInt(event.target.value, 10));
+    } else {
+      setGridsPerPage(parseInt(event.target.value, 10));
+    }
     setPage(0);
   };
 
@@ -77,17 +79,17 @@ export function PublicGists({ mode }: PublicGistsProps) {
     navigate(routes.GIST.replace(':id', id));
   };
 
-  const handleFileChange = (_event: React.SyntheticEvent, newValue: string) => {
-    setSelectedFile(newValue);
-  };
-
   if (isLoading) return <LoadingComponent items={8} />;
   if (error) return <Typography color="error">Error loading gists</Typography>;
+
+  const filteredGists = gists.filter((gist: Gist) =>
+    gist.owner?.login.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   if (mode === 'list') {
     return (
       <GistListView
-        gists={gists}
+        gists={filteredGists}
         page={page}
         rowsPerPage={rowsPerPage}
         handleChangePage={handleChangePage}
@@ -97,7 +99,16 @@ export function PublicGists({ mode }: PublicGistsProps) {
     );
   }
 
-  return <GistGridView gists={gists} />;
+  return (
+    <GistGridView
+      gists={filteredGists}
+      page={page}
+      rowsPerPage={gridsPerPage}
+      handleChangePage={handleChangePage}
+      handleChangeRowsPerPage={handleChangeRowsPerPage}
+      handleGistClick={handleGistClick}
+    />
+  );
 
   //{
   /* {selectedGist && (

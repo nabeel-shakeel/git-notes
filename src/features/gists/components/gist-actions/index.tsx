@@ -52,8 +52,6 @@ export function GistActions({ gistId, forkCount }: GistActionsProps) {
     }
   };
 
-  console.log('Is starred: ', isStarred);
-
   return (
     <Stack direction="row">
       <Tooltip title={isStarred ? 'Unstar' : 'Star'}>
