@@ -1,30 +1,29 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import './user-profile-menu.styles.scss';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
-import { User } from 'src/features/auth/auth.types';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Avatar,
+  Menu,
+  MenuItem,
+  Divider,
+  IconButton,
+  Typography,
+} from '@mui/material';
+import { useAppDispatch } from '../../redux/hooks';
+import { routes } from '../../routing';
 import { auth, signOut } from '../../features/auth/firebase';
 import { clearUser } from '../../features/auth/authSlice';
+import { User } from 'src/features/auth/auth.types';
+import './user-profile-menu.styles.scss';
 
 interface UserProfileMenuProps {
   user: User;
 }
 
 export function UserProfileMenu({ user }: UserProfileMenuProps) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -44,8 +43,18 @@ export function UserProfileMenu({ user }: UserProfileMenuProps) {
     }
   };
 
+  const handleNavigateProfile = (gistType: string) => {
+    navigate(routes.PROFILE, {
+      state: { gistType },
+    });
+  };
+
+  const handleNavigateCreateGist = () => {
+    navigate(routes.CREATE_GIST);
+  };
+
   return (
-    <React.Fragment>
+    <>
       <IconButton
         onClick={handleClick}
         size="small"
@@ -61,52 +70,31 @@ export function UserProfileMenu({ user }: UserProfileMenuProps) {
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        slotProps={{
-          paper: {
-            elevation: 0,
-            sx: {
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-              mt: 1.5,
-              '& .MuiAvatar-root': {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              '&::before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
-            },
-          },
-        }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
           <Box>
-            <Typography variant="caption">Signed in as </Typography>
+            <Typography variant="caption" color="secondary">
+              Signed in as{' '}
+            </Typography>
             <Typography variant="body2" fontWeight={700} color="primary">
               {user.displayName}
             </Typography>
           </Box>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleNavigateCreateGist}>
+          <Typography variant="body2" color="primary">
+            Create Gist
+          </Typography>
+        </MenuItem>
+        <MenuItem onClick={() => handleNavigateProfile('all')}>
           <Typography variant="body2" color="primary">
             Your gists
           </Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => handleNavigateProfile('starred')}>
           <Typography variant="body2" color="primary">
             Starred gists
           </Typography>
@@ -117,17 +105,12 @@ export function UserProfileMenu({ user }: UserProfileMenuProps) {
           </Typography>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
-          <Typography variant="body2" color="primary">
-            Help
-          </Typography>
-        </MenuItem>
         <MenuItem onClick={handleSignOut}>
           <Typography variant="body2" color="primary">
             Sign out
           </Typography>
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }
