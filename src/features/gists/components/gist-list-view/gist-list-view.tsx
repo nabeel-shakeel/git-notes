@@ -30,6 +30,8 @@ import {
 import { GistActions } from '../gist-actions';
 import { Gist } from '../../gists.types';
 import { GistListSkeleton } from './gist-list-loading';
+import { Pagination } from '../../../../components';
+import { ROWS_PER_PAGE_OPTIONS } from '../../../../utils/constants';
 
 interface GistsTableViewProps {
   gists: Gist[];
@@ -128,14 +130,13 @@ export function GistListView(props: GistsTableViewProps) {
           ))}
         </TableBody>
       </Table>
-      <TablePagination
-        component="div"
+      <Pagination
         count={-1}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        rowsPerPageOptions={[5, 10]}
+        rowsPerPageOptions={ROWS_PER_PAGE_OPTIONS}
       />
     </TableContainer>
   );
