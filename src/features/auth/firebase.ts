@@ -1,14 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GithubAuthProvider, signOut } from 'firebase/auth';
 
-// Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyC06Djf-vDjmir1KA04M2ogYuvZmwYXyRk',
-  authDomain: 'git-notes-5a4ca.firebaseapp.com',
-  projectId: 'git-notes-5a4ca',
-  storageBucket: 'git-notes-5a4ca.firebasestorage.app',
-  messagingSenderId: '958120305013',
-  appId: '1:958120305013:web:44c393861e5a57e25cb33c',
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
