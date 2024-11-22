@@ -1,0 +1,32 @@
+.author-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .author-info {
+    .name-section {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      margin-bottom: 4px;
+
+      .filename {
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .description {
+      color: #7a7a7a;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 500px;
+      text-align: left;
+    }
+  }
+}
