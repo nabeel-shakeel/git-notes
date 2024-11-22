@@ -4,9 +4,9 @@ import { Stack, Typography } from '@mui/material';
 import {
   Pagination,
   GistGridLoading,
+  NoGistAvailable,
   ErrorComponent,
 } from '../../../../components';
-import { routes } from '../../../../routing/routes';
 import {
   useGetUserGistsQuery,
   useGetStarredGistsQuery,
@@ -63,10 +63,6 @@ export function UserGists({ gistType }: UserGistsProps) {
     setPage(0);
   };
 
-  const handleGistClick = (id: string) => {
-    navigate(routes.GIST.replace(':id', id));
-  };
-
   if (isLoadingAllGists || isLoadingStarredGists)
     return <GistGridLoading items={8} />;
 
@@ -87,6 +83,7 @@ export function UserGists({ gistType }: UserGistsProps) {
           {gistsCount}
         </Typography>
       </Stack>
+      {selectedGists.length === 0 && <NoGistAvailable />}
       {selectedGists.map((gist) => (
         <GistCard gist={gist} />
       ))}
