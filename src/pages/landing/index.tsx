@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Stack, Box, Typography } from '@mui/material';
-import { PublicGists } from '../../features/gists/components/PublicGists';
+import { PublicGists } from '../../features/public-gists/public-gists';
 import { LayoutSwitch } from '../../components';
 import './landing.styles.scss';
 

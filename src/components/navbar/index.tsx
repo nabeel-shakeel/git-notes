@@ -1,14 +1,13 @@
-import { useSelector } from 'react-redux';
 import { Box, AppBar, Toolbar } from '@mui/material';
-import { RootState } from '../../redux/store';
+import { useAppSelector } from '../../redux/hooks';
 import { UserProfileMenu } from '../user-profile-menu';
 import { SearchGist } from '../../features/search/components/search-gist';
-import { GithubLogin } from '../../features/auth/components/github-login';
+import { GithubLogin } from '../github-login';
 import { AppLogo } from '../../assets/icons';
 import './navbar.styles.scss';
 
-export default function Navbar() {
-  const { user } = useSelector((state: RootState) => state.auth);
+export function Navbar() {
+  const { user } = useAppSelector((state) => state.auth);
 
   return (
     <AppBar position="static">

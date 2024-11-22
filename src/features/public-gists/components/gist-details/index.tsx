@@ -1,7 +1,10 @@
 import { Stack, Box, Typography } from '@mui/material';
 import { FileContentViewer, GistAuthorInfo } from '../../../../components';
 import { GistActions } from '../gist-actions';
-import { getMainFileName, getMainFileInfo } from './../../gists.utils';
+import {
+  getMainFileName,
+  getMainFileInfo,
+} from '../../../../services/gists/gists.utils';
 import { SingleGist } from '../../gists.types';
 import './gist-details.styles.scss';
 

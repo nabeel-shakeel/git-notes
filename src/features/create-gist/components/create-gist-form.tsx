@@ -5,7 +5,7 @@ import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { routes } from '../../../routing';
-import { useCreateGistMutation } from '../../gists/gistsApiSlice';
+import { useCreateGistMutation } from '../../../services/gists/gists';
 import { createGistSchema } from '../create-gist.schema';
 
 type GistFormValues = z.infer<typeof createGistSchema>;

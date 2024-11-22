@@ -1,6 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { prism as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { useGetGistContentQuery } from '../../features/gists/gistsApiSlice';
+import { useGetGistContentQuery } from '../../services/gists/gists';
 
 interface FileContentViewerProps {
   language: string;
@@ -17,7 +17,12 @@ export function FileContentViewer({
 
   const limitedContent = showFullContent
     ? fileContent
-    : fileContent?.split('\n').slice(0, 10).join('\n');
+    : fileContent
+        ?.split('\n')
+        .slice(0, 8)
+        .concat(Array(8).fill(''))
+        .slice(0, 8)
+        .join('\n');
 
   return (
     <SyntaxHighlighter

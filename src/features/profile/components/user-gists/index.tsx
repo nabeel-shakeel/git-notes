@@ -10,8 +10,8 @@ import {
 import {
   useGetUserGistsQuery,
   useGetStarredGistsQuery,
-} from '../../../gists/gistsApiSlice';
-import { GistCard } from '../../../gists/components/gist-card';
+} from '../../../../services/gists/gists';
+import { GistCard } from '../../../public-gists/components/gist-card';
 import {
   USER_GISTS_PER_PAGE,
   USER_GISTS_PER_PAGE_OPTIONS,

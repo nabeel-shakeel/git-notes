@@ -1,3 +1,4 @@
+export * from './navbar';
 export * from './layout-switch';
 export * from './error-component';
 export * from './pagination';
@@ -5,3 +6,4 @@ export * from './gist-grid-loading';
 export * from './file-content-viewer';
 export * from './gist-author-info';
 export * from './no-gist-available';
+export * from './github-login';

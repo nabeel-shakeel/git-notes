@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../../redux/store';
+import { GISTS_API_URL } from '../../utils/constants';
 import { Gist, SingleGist, StarGistResponse } from './gists.types';
 
 export const gistsApi = createApi({
   reducerPath: 'gistsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.github.com',
+    baseUrl: GISTS_API_URL,
     prepareHeaders: (headers, { getState }) => {
       const { user } = (getState() as RootState).auth;
 
@@ -84,7 +85,6 @@ export const gistsApi = createApi({
         { type: 'star-status', id: gistId },
       ],
       transformResponse: (_response, meta) => {
-        console.log('Transform response: ', meta);
         if (meta?.response?.status === 204) {
           return true; // Gist is starred
         }

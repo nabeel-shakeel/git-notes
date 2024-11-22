@@ -1,5 +1,4 @@
 .gist-preview-card {
-  width: 100%;
   border: 1px solid #efefef;
 
   .code-preview {
@@ -44,6 +43,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    overflow: hidden;
 
     .author-info {
       .name-section {
@@ -55,6 +55,8 @@
         .filename {
           font-weight: 600;
           cursor: pointer;
+          text-overflow: ellipsis;
+          white-space: nowrap;
 
           &:hover {
             text-decoration: underline;

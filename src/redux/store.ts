@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { authReducer } from '../features/auth/authSlice';
 import { searchReducer } from '../features/search/searchSlice';
-import { gistsApi } from '../features/gists/gistsApiSlice';
+import { gistsApi } from '../services/gists/gists';
 
 export const store = configureStore({
   reducer: {

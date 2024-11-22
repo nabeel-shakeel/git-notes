@@ -2,7 +2,7 @@ import { Grid2 as Grid, Stack } from '@mui/material';
 import { Pagination } from '../../../../components';
 import { GistCard } from '../gist-card';
 import { GRIDS_PER_PAGE_OPTIONS } from '../../../../utils/constants';
-import { Gist } from '../../gists.types';
+import { Gist } from '../../../../services/gists/gists.types';
 
 interface GistGridViewProps {
   gists: Gist[];
@@ -22,7 +22,7 @@ export function GistGridView(props: GistGridViewProps) {
   } = props;
   return (
     <Stack>
-      <Grid container spacing={{ xs: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid container spacing={4}>
         {gists.map((gist) => (
           <Grid key={gist.id} size={{ xs: 6, xl: 4 }}>
             <GistCard gist={gist} />

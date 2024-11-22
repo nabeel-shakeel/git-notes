@@ -1,70 +1,36 @@
-import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardContent,
   CardActionArea,
   Typography,
   Box,
-  Avatar,
-  IconButton,
-  Button,
-  Tooltip,
 } from '@mui/material';
-import { Star, Share } from '@mui/icons-material';
-import { Gist } from '../../gists.types';
+import { routes } from '../../../../routing';
 import { FileContentViewer, GistAuthorInfo } from '../../../../components';
 import { GistActions } from '../gist-actions';
-import { getMainFileName, getMainFileInfo } from '../../gists.utils';
+import {
+  getMainFileName,
+  getMainFileInfo,
+} from '../../../../services/gists/gists.utils';
+import { Gist } from '../../../../services/gists/gists.types';
 import './gist-card.styles.scss';
-import { useGetGistContentQuery } from '../../gistsApiSlice';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { materialOceanic as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import ReactMarkdown from 'react-markdown';
-import { useNavigate } from 'react-router-dom';
 
 interface GistCardProps {
   gist: Gist;
-  onViewFile?: () => void;
 }
 
-export function GistCard({ gist, onViewFile }: GistCardProps) {
+export function GistCard({ gist }: GistCardProps) {
   const navigate = useNavigate();
-  const [isHovered, setIsHovered] = useState(false);
 
   const { language, raw_url } = getMainFileInfo(gist);
 
   const handleNavigateGist = () => {
-    navigate(`/gist/${gist.id}`);
+    navigate(routes.GIST.replace(':id', gist.id));
   };
 
   return (
     <Card className="gist-preview-card">
-      {/* <div
-        className="code-preview"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <Button
-          className="view-file-button"
-          variant="outlined"
-          size="small"
-          onClick={onViewFile}
-        >
-          {getMainFileName(gist)}
-        </Button>
-        {language === 'Markdown' ? (
-          <ReactMarkdown>{fileContent}</ReactMarkdown>
-        ) : (
-          <SyntaxHighlighter
-            style={theme}
-            language={language}
-            showLineNumbers
-            lineNumberStyle={{ color: '#B7B7B7', paddingRight: '10px' }}
-          >
-            {limitedContent || ''}
-          </SyntaxHighlighter>
-        )}
-      </div> */}
       <CardContent className="card-content">
         <CardActionArea className="code-preview" onClick={handleNavigateGist}>
           <Box className="view-file">

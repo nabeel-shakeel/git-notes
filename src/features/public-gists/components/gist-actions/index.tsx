@@ -16,7 +16,7 @@ import {
   useUnstarGistMutation,
   useForkGistMutation,
   useCheckIfStarredQuery,
-} from '../../gistsApiSlice';
+} from '../../../../services/gists/gists';
 import { useAppSelector } from '../../../../redux/hooks';
 import './gist-actions.syles.scss';
 
@@ -53,13 +53,17 @@ export function GistActions({ gistId, forkCount }: GistActionsProps) {
   };
 
   return (
-    <Stack direction="row" spacing={0}>
+    <Stack direction="row">
       <Tooltip title={isStarred ? 'Unstar' : 'Star'}>
         {isStarring || isUnStarring ? (
           <CircularProgress size={20} sx={{ alignSelf: 'center' }} />
         ) : (
           <Box>
-            <IconButton onClick={handleStar} disabled={!user}>
+            <IconButton
+              sx={{ padding: 0 }}
+              onClick={handleStar}
+              disabled={!user}
+            >
               {isStarred ? (
                 <StarIcon className="star-filled" />
               ) : (
@@ -74,7 +78,11 @@ export function GistActions({ gistId, forkCount }: GistActionsProps) {
           <CircularProgress size={20} sx={{ alignSelf: 'center' }} />
         ) : (
           <Badge color="primary" badgeContent={forkCount}>
-            <IconButton onClick={handleFork} disabled={!user}>
+            <IconButton
+              sx={{ padding: 0 }}
+              onClick={handleFork}
+              disabled={!user}
+            >
               <ForkIcon />
             </IconButton>
           </Badge>

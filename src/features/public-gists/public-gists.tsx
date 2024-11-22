@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../redux/hooks';
-import { routes } from '../../../routing/routes';
-import { useGetPublicGistsQuery } from '../gistsApiSlice';
+import { useAppSelector } from '../../redux/hooks';
+import { routes } from '../../routing/routes';
+import { useGetPublicGistsQuery } from '../../services/gists/gists';
 import {
   ErrorComponent,
   GistGridLoading,
   NoGistAvailable,
-} from '../../../components';
-import { GistListView, GistListSkeleton } from './gist-list-view';
-import { GistGridView } from './gist-grid-view';
-import { ROWS_PER_PAGE, GRIDS_PER_PAGE } from '../../../utils/constants';
-import { Gist } from '../gists.types';
+} from '../../components';
+import { GistListView, GistListSkeleton } from './components/gist-list-view';
+import { GistGridView } from './components/gist-grid-view';
+import { ROWS_PER_PAGE, GRIDS_PER_PAGE } from '../../utils/constants';
+import { Gist } from '../../services/gists/gists.types';
 
 interface PublicGistsProps {
   mode: 'list' | 'grid';

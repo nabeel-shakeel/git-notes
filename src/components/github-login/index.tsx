@@ -1,10 +1,10 @@
-import { useDispatch } from 'react-redux';
 import { Button, Typography } from '@mui/material';
-import { AppDispatch } from '../../../redux/store';
-import { loginWithGithub } from '../authSlice';
+import { useAppDispatch } from '../../redux/hooks';
+import { loginWithGithub } from '../../features/auth/authSlice';
+import './github-login.styles.scss';
 
 export function GithubLogin() {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogin = () => {
     dispatch(loginWithGithub());
@@ -12,8 +12,8 @@ export function GithubLogin() {
 
   return (
     <Button
+      className="button"
       variant="contained"
-      color="secondary"
       size="large"
       onClick={handleLogin}
     >

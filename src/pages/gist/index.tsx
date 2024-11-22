@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import { useGetSingleGistQuery } from '../../features/gists/gistsApiSlice';
 import { Typography } from '@mui/material';
-import { GistDetails } from '../../features/gists/components/gist-details';
+import { useGetSingleGistQuery } from '../../services/gists/gists';
+import { GistDetails } from '../../features/public-gists/components/gist-details';
 
 export function GistPage() {
   const { id } = useParams<{ id: string }>();

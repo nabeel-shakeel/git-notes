@@ -11,7 +11,7 @@ export function ErrorComponent({
 }: ErrorComponentProps) {
   return (
     <Box className="error">
-      <ErrorOutline color="error" sx={{ fontSize: 48, mb: 2 }} />
+      <ErrorOutline color="error" className="outline" />
       <Typography variant="h6" color="text.primary" gutterBottom>
         {message}
       </Typography>

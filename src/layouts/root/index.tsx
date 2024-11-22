@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Container } from '@mui/material';
 import { useAppDispatch } from '../../redux/hooks';
 import { setUser, clearUser } from '../../features/auth/authSlice';
-import Navbar from '../../components/navbar';
+import { Navbar } from '../../components';
 import './root.styles.scss';
 
 export function RootLayout() {
