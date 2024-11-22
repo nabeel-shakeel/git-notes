@@ -53,7 +53,7 @@ export function GistActions({ gistId, forkCount }: GistActionsProps) {
   };
 
   return (
-    <Stack direction="row">
+    <Stack direction="row" spacing={0}>
       <Tooltip title={isStarred ? 'Unstar' : 'Star'}>
         {isStarring || isUnStarring ? (
           <CircularProgress size={20} sx={{ alignSelf: 'center' }} />

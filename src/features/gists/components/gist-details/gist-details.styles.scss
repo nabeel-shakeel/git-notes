@@ -3,3 +3,13 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.file-content {
+  background-color: #fafafa;
+  border-radius: 4px;
+
+  .file-name {
+    padding: 10px;
+    text-align: left;
+  }
+}

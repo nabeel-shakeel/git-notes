@@ -10,7 +10,6 @@ interface GistGridViewProps {
   rowsPerPage: number;
   handleChangePage: (event: unknown, newPage: number) => void;
   handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleGistClick: (id: string) => void;
 }
 
 export function GistGridView(props: GistGridViewProps) {
@@ -20,7 +19,6 @@ export function GistGridView(props: GistGridViewProps) {
     rowsPerPage,
     handleChangePage,
     handleChangeRowsPerPage,
-    handleGistClick,
   } = props;
   return (
     <Stack>
