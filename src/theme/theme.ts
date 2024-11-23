@@ -10,6 +10,7 @@ export const theme = createTheme({
     },
   },
   typography: {
+    fontFamily: 'Inter, Arial, sans-serif',
     h5: {
       fontSize: '25px',
       fontWeight: 400,
@@ -25,6 +26,27 @@ export const theme = createTheme({
       fontSize: '11px',
       fontWeight: 400,
       lineHeight: '15px',
+    },
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: '#3D3D3D',
+          fontSize: '14px',
+          fontWeight: 400,
+          '& .MuiOutlinedInput-input': {
+            fontSize: '14px',
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+      },
     },
   },
 });

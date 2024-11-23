@@ -1,3 +1,5 @@
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/700.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { AppProviders } from './providers/app-providers';
