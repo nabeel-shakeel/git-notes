@@ -1,0 +1,36 @@
+// create-gist-form.styles.scss
+
+.gist-form {
+  .gist-field {
+    border: 1px solid #efefef;
+    border-radius: 4px;
+
+    &-header {
+      background-color: #fafafa;
+      padding: 10px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 2px;
+    }
+
+    &-filename {
+      border-color: #7a7a7a;
+    }
+
+    &-delete {
+      margin-left: 0;
+    }
+  }
+
+  .add-file-button {
+    color: var(--primary-main);
+    background-color: #efefef;
+    font-weight: 700;
+  }
+
+  .submit-button {
+    color: white;
+    background-color: var(--primary-main);
+    font-weight: 700;
+  }
+}

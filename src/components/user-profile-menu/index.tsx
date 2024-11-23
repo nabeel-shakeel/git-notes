@@ -8,6 +8,7 @@ import {
   Divider,
   IconButton,
   Typography,
+  Link,
 } from '@mui/material';
 import { useAppDispatch } from '../../redux/hooks';
 import { routes } from '../../routing';
@@ -99,7 +100,16 @@ export function UserProfileMenu({ user }: UserProfileMenuProps) {
             Starred gists
           </Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          component="a"
+          href={user.profileURL || ''}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleClose();
+          }}
+        >
           <Typography variant="body2" color="primary">
             Your Github profile
           </Typography>

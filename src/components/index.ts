@@ -7,3 +7,4 @@ export * from './file-content-viewer';
 export * from './gist-author-info';
 export * from './no-gist-available';
 export * from './github-login';
+export * from './user-info';

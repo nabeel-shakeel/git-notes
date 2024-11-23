@@ -55,6 +55,7 @@ export function GistCard({ gist }: GistCardProps) {
               url: gist.owner.avatar_url,
             }}
             fileName={getMainFileName(gist)}
+            createdAt={gist.created_at}
             description={gist.description}
           />
           <GistActions gistId={gist.id} forkCount={0} />

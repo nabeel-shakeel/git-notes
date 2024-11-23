@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Table,
   TableBody,
@@ -7,30 +7,15 @@ import {
   TableHead,
   TableRow,
   Paper,
-  TablePagination,
-  Card,
-  CardContent,
-  Typography,
   Avatar,
-  Grid2 as Grid,
-  Tabs,
-  Tab,
   Box,
   Link,
   TableCellProps,
 } from '@mui/material';
-import { format } from 'date-fns';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import ReactMarkdown from 'react-markdown';
-import {
-  useGetPublicGistsQuery,
-  useGetGistContentQuery,
-} from '../../gistsApiSlice';
-import { GistActions } from '../gist-actions';
-import { Gist } from '../../gists.types';
-import { GistListSkeleton } from './gist-list-loading';
 import { Pagination } from '../../../../components';
+import { GistActions } from '../gist-actions';
+import { Gist } from '../../../../services/gists/gists.types';
+import { timeAgo } from '../../../../utils/helpers';
 import { ROWS_PER_PAGE_OPTIONS } from '../../../../utils/constants';
 
 interface GistsTableViewProps {
@@ -97,7 +82,7 @@ export function GistListView(props: GistsTableViewProps) {
               onClick={() => handleGistClick(gist.id)}
               style={{ cursor: 'pointer' }}
             >
-              <TableCell width={'30%'}>
+              <TableCell width={'25%'}>
                 <Box display="flex" alignItems="center" gap={1}>
                   <Avatar
                     src={gist.owner.avatar_url}
@@ -116,8 +101,8 @@ export function GistListView(props: GistsTableViewProps) {
               <TableCell width={'40%'}>
                 {gist.description || 'No description'}
               </TableCell>
-              <TableCell width={'20%'}>
-                {format(new Date(gist.updated_at), 'MMM dd, yyyy')}
+              <TableCell width={'25%'}>
+                Updated {timeAgo(gist.updated_at)}
               </TableCell>
               <TableCell
                 width={'10%'}

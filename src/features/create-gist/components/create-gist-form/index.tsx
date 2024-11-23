@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { Stack, TextField, Button, IconButton } from '@mui/material';
-import { Delete } from '@mui/icons-material';
+import { DeleteOutline } from '@mui/icons-material';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { routes } from '../../../routing';
-import { useCreateGistMutation } from '../../../services/gists/gists';
-import { createGistSchema } from '../create-gist.schema';
+import { routes } from '../../../../routing';
+import { useCreateGistMutation } from '../../../../services/gists/gists';
+import { createGistSchema } from './create-gist.schema';
+import './create-gist-form.styles.scss';
 
 type GistFormValues = z.infer<typeof createGistSchema>;
 
@@ -54,6 +55,7 @@ export function CreateGistForm() {
       component="form"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
+      className="gist-form"
     >
       <Controller
         name="description"
@@ -76,12 +78,13 @@ export function CreateGistForm() {
           key={field.id}
           sx={{ border: '1px solid #EFEFEF', borderRadius: '4px' }}
           alignItems="stretch"
+          className="gist-field"
         >
           <Stack
             direction="row"
             justifyContent="flex-start"
             spacing={2}
-            sx={{ backgroundColor: '#FAFAFA', padding: 1 }}
+            className="gist-field-header"
           >
             <Controller
               name={`files.${index}.filename`}
@@ -89,7 +92,7 @@ export function CreateGistForm() {
               render={({ field, fieldState }) => (
                 <TextField
                   {...field}
-                  sx={{ borderColor: '#7A7A7A' }}
+                  className="gist-field-filename"
                   placeholder="filename.txt"
                   size="small"
                   error={!!fieldState.error}
@@ -97,9 +100,15 @@ export function CreateGistForm() {
                 />
               )}
             />
-            <IconButton onClick={() => remove(index)}>
-              <Delete />
-            </IconButton>
+            {fields.length > 1 && (
+              <IconButton
+                className="gist-field-delete"
+                color="error"
+                onClick={() => remove(index)}
+              >
+                <DeleteOutline />
+              </IconButton>
+            )}
           </Stack>
           <Controller
             name={`files.${index}.content`}
@@ -123,16 +132,17 @@ export function CreateGistForm() {
         <Button
           type="button"
           variant="contained"
+          disableElevation
+          className="add-file-button"
           onClick={() => append({ filename: '', content: '' })}
-          sx={{ mb: 2 }}
         >
           Add File
         </Button>
-
         <Button
           type="submit"
           variant="contained"
-          color="primary"
+          disableElevation
+          className="submit-button"
           disabled={isLoading}
         >
           {isLoading ? 'Creating...' : 'Create Gist'}

@@ -1,4 +1,5 @@
 import { Typography, Box, Avatar } from '@mui/material';
+import { timeAgo } from '../../utils/helpers';
 import './gist-author-info.styles.scss';
 
 interface GistAuthorInfoProps {
@@ -7,11 +8,12 @@ interface GistAuthorInfoProps {
     url: string;
   };
   fileName: string;
+  createdAt: string;
   description?: string;
 }
 
 export function GistAuthorInfo(props: GistAuthorInfoProps) {
-  const { owner, description, fileName } = props;
+  const { owner, fileName, description, createdAt } = props;
   return (
     <Box className="author-section">
       <Avatar src={owner.url} alt={owner.name} sx={{ width: 40, height: 40 }} />
@@ -32,6 +34,9 @@ export function GistAuthorInfo(props: GistAuthorInfoProps) {
             {fileName}
           </Typography>
         </Box>
+        <Typography component="p" variant="caption" className="createdAt">
+          Cretaed {timeAgo(createdAt)}
+        </Typography>
         {description && (
           <Typography component="p" variant="caption" className="description">
             {description}

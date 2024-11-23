@@ -4,9 +4,7 @@ import { CreateGistForm } from '../../features/create-gist/components/create-gis
 export function CreateGistPage() {
   return (
     <Stack spacing={1} alignItems="flex-start">
-      <Typography variant="h5" color="#3D3D3D">
-        Create Gist
-      </Typography>
+      <Typography variant="h5">Create Gist</Typography>
       <Container maxWidth="sm" sx={{ alignSelf: 'center' }}>
         <CreateGistForm />
       </Container>

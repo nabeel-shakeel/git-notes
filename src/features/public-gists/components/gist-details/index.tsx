@@ -5,7 +5,7 @@ import {
   getMainFileName,
   getMainFileInfo,
 } from '../../../../services/gists/gists.utils';
-import { SingleGist } from '../../gists.types';
+import { SingleGist } from '../../../../services/gists/gists.types';
 import './gist-details.styles.scss';
 
 interface GistDetailsProps {
@@ -27,6 +27,7 @@ export function GistDetails({ gist }: GistDetailsProps) {
             url: gist.owner.avatar_url,
           }}
           fileName={getMainFileName(gist)}
+          createdAt={gist.created_at}
           description={gist.description}
         />
         <GistActions gistId={gist.id} forkCount={forkCount} />
