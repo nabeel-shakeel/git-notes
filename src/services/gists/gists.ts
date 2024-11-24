@@ -39,9 +39,18 @@ export const gistsApi = createApi({
     }),
     getSingleGist: builder.query<SingleGist, string>({
       query: (gistId) => `/gists/${gistId}`,
-      providesTags: (_result, _error, gistId) => [
-        { type: 'single-gist', id: gistId },
-      ],
+      providesTags: (result, _error, gistId) => {
+        if (result) {
+          return [{ type: 'single-gist', id: gistId }];
+        }
+        return [];
+      },
+      transformResponse: (_response, meta) => {
+        if (meta?.response?.status === 404) {
+          throw new Error('Gist not found'); // Handle unexpected cases
+        }
+        return _response as SingleGist;
+      },
     }),
     getGistContent: builder.query<string, string>({
       query: (rawUrl) => ({

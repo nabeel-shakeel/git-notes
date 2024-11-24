@@ -6,9 +6,10 @@ import { useGetPublicGistsQuery } from '../../services/gists/gists';
 import {
   ErrorComponent,
   GistGridLoading,
+  GistListLoading,
   NoGistAvailable,
 } from '../../components';
-import { GistListView, GistListSkeleton } from './components/gist-list-view';
+import { GistListView } from './components/gist-list-view';
 import { GistGridView } from './components/gist-grid-view';
 import { ROWS_PER_PAGE, GRIDS_PER_PAGE } from '../../utils/constants';
 import { Gist } from '../../services/gists/gists.types';
@@ -53,7 +54,7 @@ export function PublicGists({ mode }: PublicGistsProps) {
     navigate(routes.GIST.replace(':id', id));
   };
 
-  const LoadingComponent = mode === 'list' ? GistListSkeleton : GistGridLoading;
+  const LoadingComponent = mode === 'list' ? GistListLoading : GistGridLoading;
 
   if (isLoading) return <LoadingComponent items={8} />;
   if (error) return <ErrorComponent />;

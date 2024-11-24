@@ -1,7 +1,6 @@
-import React from 'react';
-import { Box, Skeleton, Stack } from '@mui/material';
+import { Skeleton, Stack } from '@mui/material';
 
-export function GistListSkeleton({ items = 5 }: { items?: number }) {
+export function GistListLoading({ items = 5 }: { items?: number }) {
   return (
     <Stack spacing={2}>
       {Array.from({ length: items }).map((_, index) => (
