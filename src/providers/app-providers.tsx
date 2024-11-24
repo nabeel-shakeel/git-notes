@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material';
+import { SnackbarProvider } from 'notistack';
 import { store } from '../redux/store';
 import { theme, CSSVariables } from '../theme';
 interface AppProvidersProps {
@@ -14,7 +15,9 @@ export function AppProviders({ children }: AppProvidersProps) {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CSSVariables theme={theme} />
-          {children}
+          <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
+            {children}
+          </SnackbarProvider>
         </ThemeProvider>
       </Provider>
     </BrowserRouter>

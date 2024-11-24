@@ -4,6 +4,7 @@ import { DeleteOutline } from '@mui/icons-material';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSnackbar } from 'notistack';
 import { routes } from '../../../../routing';
 import { useCreateGistMutation } from '../../../../services/gists/gists';
 import { createGistSchema } from './create-gist.schema';
@@ -13,6 +14,7 @@ type GistFormValues = z.infer<typeof createGistSchema>;
 
 export function CreateGistForm() {
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const [createGist, { isLoading }] = useCreateGistMutation();
   const { control, handleSubmit, reset } = useForm<GistFormValues>({
     resolver: zodResolver(createGistSchema),
@@ -39,13 +41,13 @@ export function CreateGistForm() {
 
     try {
       await createGist(payload).unwrap();
-      alert('Gist created successfully!');
+      enqueueSnackbar('Gist created successfully', { variant: 'success' });
       reset();
       navigate(routes.PROFILE, {
         state: { gistType: 'all' },
       });
     } catch (error) {
-      alert('Failed to create gist.');
+      enqueueSnackbar('Failed to create gist', { variant: 'error' });
     }
   };
 

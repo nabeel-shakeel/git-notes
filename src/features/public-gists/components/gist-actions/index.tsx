@@ -11,6 +11,7 @@ import {
   StarBorder as StarBorderIcon,
   ForkRight as ForkIcon,
 } from '@mui/icons-material';
+import { useSnackbar } from 'notistack';
 import {
   useStarGistMutation,
   useUnstarGistMutation,
@@ -27,6 +28,7 @@ interface GistActionsProps {
 
 export function GistActions({ gistId, forkCount }: GistActionsProps) {
   const { user } = useAppSelector((state) => state.auth);
+  const { enqueueSnackbar } = useSnackbar();
   const { data: isStarred } = useCheckIfStarredQuery(gistId, { skip: !user });
   const [starGist, { isLoading: isStarring }] = useStarGistMutation();
   const [unstarGist, { isLoading: isUnStarring }] = useUnstarGistMutation();
@@ -36,19 +38,22 @@ export function GistActions({ gistId, forkCount }: GistActionsProps) {
     try {
       if (isStarred) {
         await unstarGist(gistId).unwrap();
+        enqueueSnackbar('Gist unstarred successfully', { variant: 'success' });
       } else {
         await starGist(gistId).unwrap();
+        enqueueSnackbar('Gist starred successfully', { variant: 'success' });
       }
     } catch (error) {
-      console.error('Failed to star gist:', error);
+      enqueueSnackbar('Failed to star gist', { variant: 'error' });
     }
   };
 
   const handleFork = async () => {
     try {
       await forkGist(gistId).unwrap();
+      enqueueSnackbar('Gist forked successfully', { variant: 'success' });
     } catch (error) {
-      console.error('Failed to fork gist:', error);
+      enqueueSnackbar('Failed to fork gist', { variant: 'error' });
     }
   };
 
