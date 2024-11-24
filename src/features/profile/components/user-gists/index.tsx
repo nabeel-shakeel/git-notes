@@ -22,7 +22,7 @@ interface UserGistsProps {
   gistType: 'all' | 'starred';
 }
 
-export function UserGists({ gistType }: UserGistsProps) {
+export function UserGists({ gistType = 'all' }: UserGistsProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(USER_GISTS_PER_PAGE);
 

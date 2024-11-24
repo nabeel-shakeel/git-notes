@@ -1,6 +1,7 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { prism as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useGetGistContentQuery } from '../../services/gists/gists';
+import { LIMITED_FILE_LINES } from '../../utils/constants';
 
 interface FileContentViewerProps {
   language: string;
@@ -19,15 +20,15 @@ export function FileContentViewer({
     ? fileContent
     : fileContent
         ?.split('\n')
-        .slice(0, 8)
-        .concat(Array(8).fill(''))
-        .slice(0, 8)
+        .slice(0, LIMITED_FILE_LINES)
+        .concat(Array(LIMITED_FILE_LINES).fill(''))
+        .slice(0, LIMITED_FILE_LINES)
         .join('\n');
 
   return (
     <SyntaxHighlighter
       style={theme}
-      customStyle={{ marginTop: 0 }}
+      customStyle={{ marginTop: 0, overflowX: 'hidden' }}
       language={language}
       showLineNumbers
       lineNumberContainerStyle={{ paddingRight: '8px' }}

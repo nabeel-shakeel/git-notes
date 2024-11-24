@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { auth, githubProvider } from './firebase';
 import { signInWithPopup, GithubAuthProvider } from 'firebase/auth';
+import { auth, githubProvider } from './firebase';
 import { User, AuthState } from './auth.types';
 
 const initialState: AuthState = {
