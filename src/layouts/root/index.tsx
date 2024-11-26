@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { Outlet } from 'react-router-dom';
-import { Container } from '@mui/material';
 import { useAppDispatch } from '../../redux/hooks';
 import { setUser, clearUser } from '../../features/auth/authSlice';
 import { Navbar } from '../../components';
@@ -36,9 +35,9 @@ export function RootLayout() {
   return isAppShow ? (
     <>
       <Navbar />
-      <Container className="container">
+      <div className="container">
         <Outlet />
-      </Container>
+      </div>
     </>
   ) : null;
 }

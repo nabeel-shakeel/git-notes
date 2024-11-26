@@ -1,9 +1,9 @@
 export const GISTS_API_URL = process.env.GITHUB_GISTS_API_URL;
-export const ROWS_PER_PAGE = 8;
+export const ROWS_PER_PAGE = 10;
 export const GRIDS_PER_PAGE = 6;
-export const USER_GISTS_PER_PAGE = 2;
-export const ROWS_PER_PAGE_OPTIONS = [5, 8];
-export const GRIDS_PER_PAGE_OPTIONS = [4, 6];
-export const USER_GISTS_PER_PAGE_OPTIONS = [2, 4];
+export const USER_GISTS_PER_PAGE = 4;
+export const ROWS_PER_PAGE_OPTIONS = [4, 6];
+export const GRIDS_PER_PAGE_OPTIONS = [6, 8];
+export const USER_GISTS_PER_PAGE_OPTIONS = [4, 6];
 export const LIMITED_FILE_LINES = 8;
 export const SEARCH_DEBOUNCE_TIME = 300;
