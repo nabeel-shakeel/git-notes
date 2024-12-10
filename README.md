@@ -31,10 +31,6 @@
 - List User Starred Gists: Allow users to list authenticated user starred gists
 - Gist Creation: Allows users to create new gists with multiple files
 
-## Working Demo
-
-![Demo](./demo/demo.webm)
-
 ## Code Guidelines
 
 - Code is organzied by features and file types
@@ -42,6 +38,11 @@
 - Componenets that are used by multiple features are placed in `components` folder
 - Using `kebab-case` for folder, file and components naming convention
 - Using `camelCase` for function and variable naming
+
+## Required Setup
+
+- Github OAuth App
+- Firebase setup for authentication using GitHub provider
 
 ## Run Tasks
 
